@@ -12,7 +12,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import registerOffice.businessObjects.persons.Person;
+import registerOffice.businessObjects.persons.Customer;
 
 public class HibernatePersonManagerTests {
 
@@ -44,15 +44,14 @@ public class HibernatePersonManagerTests {
 
 	@Test
 	public void testGet() {
-		Person result = mgr.get(1);
-		Person result2 = mgr.get(1);
-		Person result3 = mgr.get(100);
+		Customer result = mgr.get(1);
+		Customer result2 = mgr.get(1);
+		Customer result3 = mgr.get(100);
 		assertNotNull("brak wyników",result);
 		assertEquals("zle ustawienie Id",result.getId(),1);
 		
-		assertEquals("zle ustawienie adresu",result.getAddress(),"Bregi 55");
+		assertEquals("zle ustawienie nazwiska",result.getSecondName(),"Nowicki");
 		assertEquals("zle ustawienie imion",result.getName(), "Adam");
-		assertEquals("zle ustawienie peselu",result.getPesel(), "12324");
 		assertNotSame("obiekty nie powinny wskazywac na to samo pole w pamieci",
 				result,result2);
 		assertNull("nie zwraca null gdy nie ma wyniku w bazie"
@@ -62,7 +61,7 @@ public class HibernatePersonManagerTests {
 
 	@Test
 	public void testGetAll() {
-		List<Person> results = mgr.getAll();
+		List<Customer> results = mgr.getAll();
 		
 		assertNotNull("Lista jest nullem", results);
 		assertTrue("ilosc elementów w liscie sie nie zgadza",
@@ -71,22 +70,21 @@ public class HibernatePersonManagerTests {
 
 	@Test
 	public void testSave() {
-		Person p = new Person("Tomasz","2314","Morska");
+		Customer p = new Customer("Tomasz", "Morski");
 		mgr.save(p);
-		Person result = mgr.get(7);
+		Customer result = mgr.get(7);
 		assertNotNull("nie zapisano do bazy",result);
-		assertEquals("zle ustawienie adresu",result.getAddress(),"Morska");
+		assertEquals("zle ustawienie nazwiska",result.getSecondName(),"Morski");
 		assertEquals("zle ustawienie imion",result.getName(), "Tomasz");
-		assertEquals("zle ustawienie peselu",result.getPesel(), "2314");
 		
 	}
 
 	@Test
 	public void testDelete() {
-		Person p = mgr.get(1);
+		Customer p = mgr.get(1);
 		boolean deleted = mgr.delete(p);
 		
-		Person result = mgr.get(1);
+		Customer result = mgr.get(1);
 		assertTrue("nie skasowano",deleted);
 		assertTrue("ilosc danych w bazie nie zmalala",
 				mgr.getAll().size()==5);

@@ -1,26 +1,30 @@
 package registerOffice.businessObjects.persons;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.persistence.ManyToMany;
 
 import org.hibernate.annotations.NamedQueries;
 import org.hibernate.annotations.NamedQuery;
 
 import registerOffice.Context;
-import registerOffice.businessObjects.cars.*;
+import registerOffice.businessObjects.orders.*;
 
 
 @Entity
-@Table(name = "Osoby")
+@Table(name = "Klienci")
+/*
 @NamedQueries({
 	@NamedQuery(
 			name="Person.all",
@@ -34,48 +38,29 @@ import registerOffice.businessObjects.cars.*;
 			name="Person.delete",
 			query="Delete from Person p where id=:id"
 			)
-})
-public class Person {
+})*/
+public class Customer {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	
 	@Column(name="Imie")
 	private String name;
 	
-	@OneToMany(mappedBy="owner", cascade = CascadeType.PERSIST)
-	private List<Car> cars;
+	@Column(name="Nazwisko")
+	private String secondName;
 	
-	private String pesel;
-	private String address;
+	@OneToMany(cascade=CascadeType.ALL)
+	Collection<Assortment> myOrders = new ArrayList<Assortment>();
 	
 	@Transient
 	Context context;
 	
-	public Person(String name, String pesel, String address)
+	public Customer(String name, String secondName)
 	{
-		this(name,pesel);
-		this.address=address;
-	}
-	public Person(String name, String pesel)
-	{
-		context= Context.getInstance();
-		context.raisenumberOfPeople();
-		this.pesel=pesel;
 		this.name=name;
-		this.cars=new ArrayList<Car>();
-	}
-	
-	public Person(String name) {
-		
-		this(name,"");
-	}
-	
-	public Person()
-	{
-		
-		this("","");
+		this.secondName=secondName;
 	}
 	
 	public String getName() {
@@ -84,21 +69,23 @@ public class Person {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public List<Car> getCars() {
-		return cars;
-	}
-	public void setCars(List<Car> cars) {
-		this.cars = cars;
+	
+	public String getSecondName() {
+		return secondName;
 	}
 
-	public String getPesel() {
-		return pesel;
-	}
-
-	public void setPesel(String pesel) {
-		this.pesel = pesel;
+	public void setSecondName(String secondName) {
+		this.secondName = secondName;
 	}
 	
+	public Collection<Assortment> getMyOrders() {
+		return myOrders;
+	}
+
+	public void setMyOrders(Collection<Assortment> myOrders) {
+		this.myOrders = myOrders;
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -108,17 +95,8 @@ public class Person {
 	
 	@Override
 	protected void finalize() throws Throwable {
-		context.reducePeople();
+		//context.reducePeople();
 		super.finalize();
 	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
 	
 }
