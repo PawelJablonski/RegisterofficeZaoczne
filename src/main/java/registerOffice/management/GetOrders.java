@@ -28,9 +28,9 @@ import registerOffice.management.conditions.GetBySecondName;
 
 public class GetOrders {
 
-	public void viewAllOrders(SessionFactory factory, Session session){
+	public void viewAllOrders(Session session){
 	
-	session = factory.openSession();
+	
 	
 	
 	
@@ -49,4 +49,5 @@ public class GetOrders {
 		}
 	}
 	}
+	
 }
