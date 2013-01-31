@@ -24,6 +24,8 @@ public class Memory extends Assortment{
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	public Memory(){
+		
+	}
 }
 

@@ -9,6 +9,9 @@ import registerOffice.businessObjects.persons.Customer;
 @Entity
 public class GraphicCards extends Assortment{
 	
+	public GraphicCards()
+	{
+	}
 	public GraphicCards(String serialNumber, String model)
 	{
 		super(serialNumber, model);

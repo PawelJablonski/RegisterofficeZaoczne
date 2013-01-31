@@ -9,7 +9,10 @@ import registerOffice.businessObjects.persons.Customer;
 public class Mainboards extends Assortment{
 
 	//pole statyczne
-	
+	public Mainboards()
+	{
+		
+	}
 	//pola prywatne
 	@Override
 	public String getAssortmentDetails() {

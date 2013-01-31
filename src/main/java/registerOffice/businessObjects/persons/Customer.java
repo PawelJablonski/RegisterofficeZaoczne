@@ -27,15 +27,15 @@ import registerOffice.businessObjects.orders.*;
 /*
 @NamedQueries({
 	@NamedQuery(
-			name="Person.all",
-			query="from Person p"
+			name="all",
+			query="select from Person p"
 			),
 	@NamedQuery(
-			name="Person.id",
-			query="from Person p where id= :id"
+			name="id",
+			query="select from Person p where id= :id"
 			),
 	@NamedQuery(
-			name="Person.delete",
+			name="delete",
 			query="Delete from Person p where id=:id"
 			)
 })*/
@@ -56,7 +56,10 @@ public class Customer {
 	
 	@Transient
 	Context context;
+	public Customer()
+	{
 	
+	}
 	public Customer(String name, String secondName)
 	{
 		this.name=name;

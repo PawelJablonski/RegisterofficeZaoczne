@@ -23,6 +23,8 @@ public class Processors extends Assortment{
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	public Processors(){
+		
+	}
 }
 

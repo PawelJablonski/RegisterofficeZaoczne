@@ -45,7 +45,10 @@ public abstract class Assortment implements AssortmentInterface{
 public void setOwner(Customer owner) {
 		this.owner = owner;
 	}
-
+	public Assortment()
+	{
+		
+	}
 	//	@Transient
 //	Context context;
 	public Assortment(String serialNumber, String model){
